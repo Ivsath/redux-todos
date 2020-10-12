@@ -32,35 +32,6 @@
         );
       }
 
-      // Library
-      // function createStore(reducer) {
-      //   // The store should have four parts
-      //   // 1. The state
-      //   // 2. Get the state
-      //   // 3. Listen to changes on the state
-      //   // 4. Update the state.
-
-      //   let state;
-      //   let listeners = [];
-
-      //   const getState = () => state;
-
-      //   const subscribe = (listener) => {
-      //     listeners.push(listener);
-
-      //     return () => {
-      //       listeners = listeners.filter((l) => l !== listener);
-      //     };
-      //   };
-
-      //   const dispatch = (action) => {
-      //     state = reducer(state, action);
-      //     listeners.forEach((listener) => listener());
-      //   };
-
-      //   return { getState, subscribe, dispatch };
-      // }
-
       // App Code
       const ADD_TODO = "ADD_TODO";
       const REMOVE_TODO = "REMOVE_TODO";
@@ -161,15 +132,7 @@
         }
       }
 
-      // function app(state = {}, action) {
-      //   return {
-      //     todos: todos(state.todos, action),
-      //     goals: goals(state.goals, action),
-      //   };
-      // }
-
       // Store
-      // const store = createStore(app);
       const store = Redux.createStore(
         Redux.combineReducers({
           todos,
@@ -184,12 +147,8 @@
         document.getElementById("todos").innerHTML = "";
         document.getElementById("goals").innerHTML = "";
 
-        // addTodoToDOM(todos[todos.length - 1]);
-        // addTodoToDOM(goals[goals.length - 1]);
         todos.forEach(addTodoToDOM);
         goals.forEach(addGoalToDOM);
-        // console.log("todos", todos);
-        // console.log("goals", goals);
       });
 
       // DOM
