@@ -157,13 +157,6 @@
         }),
         Redux.applyMiddleware(checker, logger)
       );
-
-      store.subscribe(() => {
-        const { todos, goals } = store.getState();
-
-        todos.forEach(addTodoToDOM);
-        goals.forEach(addGoalToDOM);
-      });
     </script>
 
     <script type="text/babel">
