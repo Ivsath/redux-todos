@@ -22,6 +22,7 @@
       integrity="sha512-kp7YHLxuJDJcOzStgd6vtpxr4ZU9kjn77e6dBsivSz+pUuAuMlE2UTdKB7jjsWT84qbS8kdCWHPETnP/ctrFsA=="
       crossorigin="anonymous"
     ></script>
+    <script src="https://ui.dev/goals-todos-api/index.js"></script>
   </head>
   <body>
     <div id="app"></div>
@@ -41,6 +42,7 @@
       const TOGGLE_TODO = "TOGGLE_TODO";
       const ADD_GOAL = "ADD_GOAL";
       const REMOVE_GOAL = "REMOVE_GOAL";
+      const RECEIVE_DATA = "RECEIVE_DATA";
 
       function addTodoAction(todo) {
         return {
@@ -74,6 +76,14 @@
         return {
           type: REMOVE_GOAL,
           id,
+        };
+      }
+
+      function receiveDataAction(todos, goals) {
+        return {
+          type: RECEIVE_DATA,
+          todos,
+          goals,
         };
       }
 
@@ -119,6 +129,8 @@
                 ? todo
                 : Object.assign({}, todo, { complete: !todo.complete })
             );
+          case RECEIVE_DATA:
+            return action.todos;
           default:
             return state;
         }
@@ -130,6 +142,8 @@
             return state.concat([action.goal]);
           case REMOVE_GOAL:
             return state.filter((goal) => goal.id !== action.id);
+          case RECEIVE_DATA:
+            return action.goals;
           default:
             return state;
         }
@@ -253,6 +267,13 @@
       class App extends React.Component {
         componentDidMount() {
           const { store } = this.props;
+
+          Promise.all([API.fetchTodos(), API.fetchGoals()]).then(
+            ([todos, goals]) => {
+              store.dispatch(receiveDataAction(todos, goals));
+            }
+          );
+
           store.subscribe(() => this.forceUpdate());
         }
 
