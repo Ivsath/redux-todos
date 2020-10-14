@@ -87,6 +87,61 @@
         };
       }
 
+      function handleDeleteTodo(todo) {
+        return (dispatch) => {
+          dispatch(removeTodoAction(todo.id));
+
+          return API.deleteTodo(todo.id).catch(() => {
+            dispatch(addTodoAction(todo));
+            alert("An error ocurred. Try again later.");
+          });
+        };
+      }
+
+      function handleAddTodo(name, callback) {
+        return (dispatch) => {
+          return API.saveGoal(name)
+            .then((todo) => {
+              dispatch(addTodoAction(todo));
+              callback();
+            })
+            .catch(() => alert("An error ocurred. Tty again later."));
+        };
+      }
+
+      function handleToggleTodo(id) {
+        return (dispatch) => {
+          dispatch(toggleTodoAction(id));
+
+          return API.saveTodoToggle(id).catch(() => {
+            dispatch(toggleTodoAction(id));
+            alert("An error ocurred. Try again later.");
+          });
+        };
+      }
+
+      function handleDeleteGoal(goal) {
+        return (dispatch) => {
+          dispatch(removeGoalAction(goal.id));
+
+          return API.deleteGoal(goal.id).catch(() => {
+            dispatch(addGoalAction(goal));
+            alert("An error ocurred. Try again later.");
+          });
+        };
+      }
+
+      function handleAddGoal(name, callback) {
+        return (dispatch) => {
+          return API.saveGoal(name)
+            .then((goal) => {
+              dispatch(addGoalAction(goal));
+              callback();
+            })
+            .catch(() => alert("An error ocurred. Tty again later."));
+        };
+      }
+
       // Redux Middleware
       const checker = (store) => (next) => (action) => {
         if (
@@ -114,6 +169,14 @@
         console.groupEnd();
 
         return result;
+      };
+
+      const thunk = (store) => (next) => (action) => {
+        if (typeof action === "function") {
+          return action(store.dispatch);
+        }
+
+        return next(action);
       };
 
       // Reducers
@@ -165,7 +228,7 @@
           goals,
           loading,
         }),
-        Redux.applyMiddleware(checker, logger)
+        Redux.applyMiddleware(thunk, checker, logger)
       );
     </script>
 
@@ -194,28 +257,17 @@
         addItem = (e) => {
           e.preventDefault();
 
-          return API.saveTodo(this.input.value)
-            .then((todo) => {
-              this.props.store.dispatch(addTodoAction(todo));
-              this.input.value = "";
-            })
-            .catch(() => alert("An error ocurred. Tty again later."));
+          this.props.store.dispatch(
+            handleAddTodo(this.input.value, () => (this.input.value = ""))
+          );
         };
 
         removeItem = (todo) => {
-          this.props.store.dispatch(removeTodoAction(todo.id));
-          return API.deleteTodo(todo.id).catch(() => {
-            this.props.store.dispatch(addTodoAction(todo));
-            alert("An error ocurred. Try again later.");
-          });
+          this.props.store.dispatch(handleDeleteTodo(todo));
         };
 
         toggleItem = (id) => {
-          this.props.store.dispatch(toggleTodoAction(id));
-          return API.saveTodoToggle(id).catch(() => {
-            this.props.store.dispatch(toggleTodoAction(id));
-            alert("An error ocurred. Try again later.");
-          });
+          this.props.store.dispatch(handleToggleTodo(id));
         };
 
         render() {
@@ -242,20 +294,13 @@
         addItem = (e) => {
           e.preventDefault();
 
-          return API.saveGoal(this.input.value)
-            .then((goal) => {
-              this.props.store.dispatch(addGoalAction(goal));
-              this.input.value = "";
-            })
-            .catch(() => alert("An error ocurred. Tty again later."));
+          this.props.store.dispatch(
+            handleAddGoal(this.input.value, () => (this.input.value = ""))
+          );
         };
 
         removeItem = (goal) => {
-          this.props.store.dispatch(removeGoalAction(goal.id));
-          return API.deleteGoal(goal.id).catch(() => {
-            this.props.store.dispatch(addGoalAction(goal));
-            alert("An error ocurred. Try again later.");
-          });
+          this.props.store.dispatch(handleDeleteGoal(goal));
         };
 
         render() {
