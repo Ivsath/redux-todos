@@ -18,6 +18,11 @@
       src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
     ></script>
     <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/redux-thunk/2.3.0/redux-thunk.min.js"
+      integrity="sha512-RP+ONt3lqUkczc2mR9uytsHFpInjOtbFgL0Xtoe5NWdLT+X/vArGKAPU4QGYCeYZMEuAvsutTA3pNfoeP3vyaQ=="
+      crossorigin="anonymous"
+    ></script>
+    <script
       src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"
       integrity="sha512-kp7YHLxuJDJcOzStgd6vtpxr4ZU9kjn77e6dBsivSz+pUuAuMlE2UTdKB7jjsWT84qbS8kdCWHPETnP/ctrFsA=="
       crossorigin="anonymous"
@@ -181,14 +186,6 @@
         return result;
       };
 
-      const thunk = (store) => (next) => (action) => {
-        if (typeof action === "function") {
-          return action(store.dispatch);
-        }
-
-        return next(action);
-      };
-
       // Reducers
       function todos(state = [], action) {
         switch (action.type) {
@@ -238,7 +235,7 @@
           goals,
           loading,
         }),
-        Redux.applyMiddleware(thunk, checker, logger)
+        Redux.applyMiddleware(ReduxThunk.default, checker, logger)
       );
     </script>
 
