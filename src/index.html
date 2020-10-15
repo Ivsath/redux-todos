@@ -264,17 +264,17 @@
         addItem = (e) => {
           e.preventDefault();
 
-          this.props.store.dispatch(
+          this.props.dispatch(
             handleAddTodo(this.input.value, () => (this.input.value = ""))
           );
         };
 
         removeItem = (todo) => {
-          this.props.store.dispatch(handleDeleteTodo(todo));
+          this.props.dispatch(handleDeleteTodo(todo));
         };
 
         toggleItem = (id) => {
-          this.props.store.dispatch(handleToggleTodo(id));
+          this.props.dispatch(handleToggleTodo(id));
         };
 
         render() {
@@ -301,13 +301,13 @@
         addItem = (e) => {
           e.preventDefault();
 
-          this.props.store.dispatch(
+          this.props.dispatch(
             handleAddGoal(this.input.value, () => (this.input.value = ""))
           );
         };
 
         removeItem = (goal) => {
-          this.props.store.dispatch(handleDeleteGoal(goal));
+          this.props.dispatch(handleDeleteGoal(goal));
         };
 
         render() {
@@ -345,8 +345,8 @@
 
           return (
             <div>
-              <Todos todos={todos} store={store} />
-              <Goals goals={goals} store={store} />
+              <Todos todos={todos} dispatch={store.dispatch} />
+              <Goals goals={goals} dispatch={store.dispatch} />
             </div>
           );
         }
