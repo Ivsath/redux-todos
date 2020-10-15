@@ -4,59 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todos/Goals</title>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.min.js"
-      integrity="sha512-P36ourTueX/PrXrD4Auc1kVLoTE7bkWrIrkaM0IG2X3Fd90LFgTRogpZzNBssay0XOXhrIgudf4wFeftdsPDiQ=="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      crossorigin
-      src="https://unpkg.com/react@16/umd/react.development.js"
-    ></script>
-    <script
-      crossorigin
-      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/redux-thunk/2.3.0/redux-thunk.min.js"
-      integrity="sha512-RP+ONt3lqUkczc2mR9uytsHFpInjOtbFgL0Xtoe5NWdLT+X/vArGKAPU4QGYCeYZMEuAvsutTA3pNfoeP3vyaQ=="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.1/react-redux.min.js"
-      integrity="sha512-Ae6lzX7eAwqencnyfCtoAf2h3tQhsV5DrHiqExqyjKrxvTgPHwwOlM694naWdO2ChMmBk3by5oM2c3soVPbI5g=="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"
-      integrity="sha512-kp7YHLxuJDJcOzStgd6vtpxr4ZU9kjn77e6dBsivSz+pUuAuMlE2UTdKB7jjsWT84qbS8kdCWHPETnP/ctrFsA=="
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://ui.dev/goals-todos-api/index.js"></script>
   </head>
   <body>
-    <div id="app"></div>
-
-    <script>
-      // Utils
-      function generateId() {
-        return (
-          Math.random().toString(36).substring(2) +
-          new Date().getTime().toString(36)
-        )
-      }
-
-      // Redux Store
-      const store = Redux.createStore()
-    </script>
-
-    <script type="text/babel">
-      ReactDOM.render(
-        <ReactRedux.Provider store={store}>
-          <ConnectedApp />
-        </ReactRedux.Provider>,
-        document.getElementById('app'),
-      )
-    </script>
+    <div id="root"></div>
+    <script src="./index.jsx"></script>
   </body>
 </html>
