@@ -21,3 +21,20 @@ yarn-debug.log*
 yarn-error.log*
 
 .vscode
+
+# Parcel related files
+dist/
+.cache/
+.parcel-cache/
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
